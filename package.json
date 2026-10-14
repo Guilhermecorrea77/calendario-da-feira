@@ -1,0 +1,11 @@
+{
+  "name": "calendario-da-feira",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Calendário da Feira: frutas da safra, lista de compras, anotações por dia e o clima, com capa em aquarela.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "license": "MIT"
+}

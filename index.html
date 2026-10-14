@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Calendário da Feira</title>
+    <meta name="description" content="Calendário da feira: frutas da safra, lista de compras, anotações por dia e o clima, com capa em aquarela.">
+    <meta name="theme-color" content="#5f4322">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍊</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<div class="stage closed" id="stage">
+
+  <!-- CAPA -->
+  <section class="cover" id="cover" aria-label="Capa do calendário">
+    <div class="leather">
+      <div class="cover-plate">
+        <svg class="cover-art" id="coverArt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-label="Banca de feira pintada em aquarela, com toldo listrado e caixotes de frutas"></svg>
+        <p class="cover-kicker">Calendário da feira</p>
+        <h1 class="cover-month" id="coverMonth">Setembro</h1>
+        <p class="cover-sub" id="coverSub">o que está na safra, dia a dia</p>
+        <button class="open-btn" id="openBtn" type="button">Abrir</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIOLO -->
+  <div class="interior leather" id="interior" aria-hidden="true">
+    <div class="binder">
+
+      <div class="pad-slot"><section class="pad" aria-label="Anotações, lista, frutas e mini calendário">
+        <div class="pad-head">
+          <div class="seg" role="tablist">
+            <button type="button" role="tab" id="tab-notes" data-v="notes" aria-selected="true" aria-controls="v-notes">Anotações</button>
+            <button type="button" role="tab" id="tab-list" data-v="list" aria-selected="false" aria-controls="v-list">Lista</button>
+            <button type="button" role="tab" id="tab-fruits" data-v="fruits" aria-selected="false" aria-controls="v-fruits">Frutas do mês</button>
+          </div>
+        </div>
+        <div class="pad-body">
+          <div class="mini">
+            <div class="mini-top">
+              <div class="mini-title" id="miniTitle">Setembro <small>2026</small></div>
+              <div class="nav">
+                <button class="paper-btn" type="button" id="prevM" aria-label="Mês anterior">‹</button>
+                <button class="paper-btn" type="button" id="todayBtn">Hoje</button>
+                <button class="paper-btn" type="button" id="nextM" aria-label="Próximo mês">›</button>
+              </div>
+            </div>
+            <div class="grid7" id="miniGrid"></div>
+            <div class="legend" aria-hidden="true"><span><i class="m-note"></i>anotação</span><span><i class="m-list"></i>lista</span><span><i class="m-list done"></i>lista comprada</span></div>
+          </div>
+
+          <div class="view" id="v-notes" role="tabpanel" aria-labelledby="tab-notes">
+            <div class="panel-title"><h2 class="dayTitle">Segunda, 28 de setembro</h2><span class="meta" id="saveState"></span></div>
+            <label for="notes" class="sr">Anotações do dia</label>
+            <textarea class="lined" id="notes" placeholder="Lembretes, receitas, quem vai junto…"></textarea>
+          </div>
+
+          <div class="view" id="v-list" role="tabpanel" aria-labelledby="tab-list" hidden>
+            <div class="panel-title"><h2>Lista da feira</h2><span class="meta dayShort">28/09</span></div>
+            <form class="add-row" id="listForm">
+              <label for="listInput" class="sr">Novo item</label>
+              <input id="listInput" type="text" placeholder="Ex.: 1 dúzia de banana" autocomplete="off">
+              <button class="paper-btn" type="submit">Adicionar</button>
+            </form>
+            <ul class="checklist" id="checklist"></ul>
+            <div class="list-foot">
+              <span class="meta" id="listCount"></span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <button class="paper-btn" type="button" id="copyPrev">Repetir lista anterior</button>
+                <button class="paper-btn" type="button" id="clearDone">Tirar comprados</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="view" id="v-fruits" role="tabpanel" aria-labelledby="tab-fruits" hidden>
+            <div class="panel-title"><h2 id="fruitsTitle">Na safra em setembro</h2><span class="meta" id="fruitsCount"></span></div>
+            <ul class="fruits" id="fruitList"></ul>
+            <p class="fruit-src">Safra aproximada para o Sudeste, baseada no calendário de sazonalidade da CEAGESP. Toque em “+ lista” para mandar a fruta para a lista do dia escolhido.</p>
+          </div>
+        </div>
+      </section></div>
+
+      <div class="spine">
+        <button class="tab-btn" id="closeBtn" type="button" aria-label="Voltar para a capa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c5 0 9 3.6 9 8 0 2.4-1.8 3.6-3.6 3.6H15.6c-1.2 0-1.8 1-1.3 2 .6 1.3.1 3.4-2.3 3.4-5 0-9-4-9-8.5S7 3 12 3z"/><circle cx="7.5" cy="10.5" r="1.2" fill="currentColor"/><circle cx="11" cy="7" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8" r="1.2" fill="currentColor"/></svg>
+          Capa
+        </button>
+        <button class="tab-btn accent icon" id="exportBtn" type="button" aria-label="Exportar o dia" title="Exportar o dia">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>
+        </button>
+      </div>
+
+      <section class="device" aria-label="Clima do dia">
+        <div class="lcd-frame">
+          <div class="brand">Feira · Tempo &amp; Calendário</div>
+          <div class="lcd" aria-live="polite">
+            <div class="lcd-row top"><span id="lcdDate">SEG · 28 SET 2026</span><span id="lcdTag"></span></div>
+            <div class="lcd-main">
+              <div class="lcd-icon" id="lcdIcon"></div>
+              <div class="lcd-temp"><b id="lcdTemp">--°</b><span id="lcdCond">Carregando o clima…</span></div>
+            </div>
+            <div class="lcd-stats">
+              <div class="stat">Mín / Máx<b id="stMinMax">--</b></div>
+              <div class="stat">Chuva<b id="stRain">--</b></div>
+              <div class="stat"><span id="stHumL">Umidade</span><b id="stHum">--</b></div>
+              <div class="stat">Vento<b id="stWind">--</b></div>
+            </div>
+            <div class="tape" id="tape"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="switch"><span>local</span><span class="city" id="cityName">Campinas, SP</span></div>
+          <div style="display:flex;gap:8px">
+            <button class="mini-key" type="button" id="geoBtn">Minha localização</button>
+            <button class="mini-key" type="button" id="cityBtn">Trocar</button>
+          </div>
+          <form class="city-form" id="cityForm" hidden>
+            <label for="cityInput" class="sr">Cidade</label>
+            <input id="cityInput" type="text" placeholder="Digite a cidade" autocomplete="off">
+            <button class="mini-key" type="submit">Buscar</button>
+          </form>
+        </div>
+
+        <div class="plate">
+          <p class="plate-label">Próximos 8 dias</p>
+          <div class="keys" id="keys"></div>
+        </div>
+
+        <div class="ticket" id="ticket" aria-live="polite">
+          <h3>Dica da feira</h3>
+          <p id="tipWeather"></p>
+          <p id="tipFruit"></p>
+        </div>
+
+        <div class="device-foot">
+          <span id="updated">Previsão: Open-Meteo</span>
+          <button class="mini-key" type="button" id="refreshBtn">Atualizar</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- painel de exportação -->
+<div class="sheet-back" id="sheetBack" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="close-x" type="button" id="sheetClose" aria-label="Fechar">×</button>
+    <div>
+      <h2 id="sheetTitle">Exportar o dia</h2>
+      <p class="lead" id="sheetLead">Uma ficha com o calendário, o clima, a lista e as frutas da safra.</p>
+      <div class="preview" id="preview"><span class="meta">Montando a ficha…</span></div>
+    </div>
+    <div>
+      <fieldset class="include" id="include">
+        <legend>Incluir na ficha</legend>
+        <label><input type="checkbox" id="inc-weather" checked> Clima</label>
+        <label><input type="checkbox" id="inc-cal" checked> Calendário</label>
+        <label><input type="checkbox" id="inc-list" checked> Lista</label>
+        <label><input type="checkbox" id="inc-notes" checked> Anotações</label>
+        <label><input type="checkbox" id="inc-fruits" checked> Frutas e dica</label>
+      </fieldset>
+      <div class="opts">
+        <button class="opt" type="button" id="exPng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg><div><b>Baixar imagem</b><span>PNG no formato de story, bom para WhatsApp e Instagram</span></div></button>
+        <button class="opt" type="button" id="exShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><div><b>Compartilhar</b><span>Envia a imagem e o texto pelo celular</span></div></button>
+        <button class="opt" type="button" id="exText"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><div><b>Copiar lista em texto</b><span>Com caixinhas ☐ para colar numa conversa</span></div></button>
+        <button class="opt" type="button" id="exPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/></svg><div><b>Imprimir ou salvar PDF</b><span>Leve a ficha no papel para a feira</span></div></button>
+        <button class="opt" type="button" id="exIcs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg><div><b>Adicionar à agenda</b><span>Evento .ics com a lista e um lembrete às 7h</span></div></button>
+        <button class="opt" type="button" id="exBackup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7c0-2 16-2 16 0v10c0 2-16 2-16 0z"/><path d="M4 7c0 2 16 2 16 0M4 12c0 2 16 2 16 0"/></svg><div><b>Guardar backup</b><span>Todas as notas e listas em um arquivo .json</span></div></button>
+        <button class="opt" type="button" id="exImport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M4 17v3h16v-3"/></svg><div><b>Restaurar backup</b><span>Traz as notas de outro navegador ou aparelho</span></div></button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div id="printArea"><img id="printImg" alt="Ficha do dia da feira"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
